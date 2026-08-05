@@ -1,7 +1,11 @@
 import { NextResponse } from 'next/server';
-import { anthropic } from '@ai-sdk/anthropic';
+import { createGroq } from '@ai-sdk/groq';
 import { generateObject } from 'ai';
 import { DeckGenerationSchema } from '@/lib/ai-schema';
+
+const groq = createGroq({
+  apiKey: process.env.GROQ_API_KEY,
+});
 
 export async function POST(req: Request) {
   try {
@@ -14,18 +18,17 @@ export async function POST(req: Request) {
       );
     }
 
-    // Call Anthropic Claude API to generate structured deck JSON
     const result = await generateObject({
-      model: anthropic('claude-3-5-sonnet-20240620'),
+      model: groq('llama-3.3-70b-versatile'),
       schema: DeckGenerationSchema,
-      prompt: `Analyze the following study notes or article and convert them into a structured study deck containing interactive flashcards and a 4-option multiple-choice quiz:\n\n${text}`,
+      prompt: `Analyze the following study notes and convert them into an interactive study deck containing flashcards and a 4-option quiz:\n\n${text}`,
     });
 
     return NextResponse.json(result.object);
-  } catch (error) {
-    console.error('Anthropic API Generation Error:', error);
+  } catch (error: any) {
+    console.error('AI Generation Error:', error);
     return NextResponse.json(
-      { error: 'Failed to generate study deck from Anthropic API. Please try again or check your account balance.' },
+      { error: error?.message || 'Failed to generate study deck.' },
       { status: 500 }
     );
   }
