@@ -19,7 +19,7 @@ export async function POST(req: Request) {
     }
 
     const result = await generateObject({
-      model: groq('llama-3.3-70b-versatile'),
+      model: groq('openai/gpt-oss-120b'),
       schema: DeckGenerationSchema,
       prompt: `Analyze the following study notes and convert them into an interactive study deck containing flashcards and a 4-option quiz:\n\n${text}`,
     });
