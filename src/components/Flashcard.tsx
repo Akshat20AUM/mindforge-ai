@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 interface FlashcardProps {
   question: string;
   answer: string;
-  hint?: string;
+  hint?: string | null;
   cardNumber: number;
   totalCards: number;
 }
