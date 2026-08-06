@@ -1,36 +1,59 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+## MindForge AI
 
-First, run the development server:
+An interactive web app that converts raw study notes, transcripts, or textbook text into structured flashcard decks and practice quizzes. 
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Built with Next.js, Tailwind CSS, Groq (Llama 3.3 70B), and Zod.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🔗 Links
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Live Site:** [mindforge-ai-kbtt-two.vercel.app](https://mindforge-ai-kbtt-two.vercel.app/)
+- **Repository:** [github.com/Akshat20AUM/mindforge-ai](https://github.com/Akshat20AUM/mindforge-ai)
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 💡 What it does & Why I built it
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Passive studying (like re-reading notes or highlighting lines) isn't very effective for long-term memory retention. Active recall—testing yourself using flashcards and quizzes—works much better, but making flashcards manually takes a lot of time.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**MindForge AI** speeds up this process. You paste in study notes or lecture text, and the app uses Groq's Llama 3.3 70B model to parse the concepts and instantly output:
+1. **Interactive Flashcards** with flip states for question/answer review.
+2. **Multiple-Choice Quizzes** with 4 choices, instant feedback, and explanations for each answer.
 
-## Deploy on Vercel
+Instead of a generic chatbot conversation, the output is strictly parsed using Zod schemas to render actual interactive UI components.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🛠️ Tech Stack
+
+- **Framework:** Next.js 14 (App Router)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **AI Integration:** Vercel AI SDK (`@ai-sdk/groq`)
+- **LLM Provider:** Groq (`llama-3.3-70b-versatile`)
+- **Schema Validation:** Zod
+- **Deployment:** Vercel
+
+---
+
+## 📁 Project Structure
+
+```text
+mindforge-ai/
+├── src/
+│   ├── app/
+│   │   ├── api/
+│   │   │   └── generate/
+│   │   │       └── route.ts     # Route handler calling Groq + Zod validation
+│   │   ├── layout.tsx           # Global font, styles, and meta tags
+│   │   └── page.tsx             # Main screen containing state & input form
+│   ├── components/
+│   │   ├── Flashcard.tsx        # Card flip component with keyboard support
+│   │   └── Quiz.tsx             # Quiz UI with radio selections & scoring
+│   └── lib/
+│       └── ai-schema.ts         # Zod schemas for Flashcards and Quiz structure
+├── .env.local                   # API keys (git-ignored)
+└── package.json
