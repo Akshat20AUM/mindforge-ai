@@ -14,6 +14,16 @@ Built with Next.js, Tailwind CSS, Groq (Llama 3.3 70B), and Zod.
 - **Repository:** [github.com/Akshat20AUM/mindforge-ai](https://github.com/Akshat20AUM/mindforge-ai)
 
 ---
+---
+
+## 🚀 Quick Start & Setup Instructions
+
+Run the application locally using a single command:
+
+```bash
+npm install && npm run dev
+
+---
 
 ## 💡 What it does & Why I built it
 
@@ -57,3 +67,4 @@ mindforge-ai/
 │       └── ai-schema.ts         # Zod schemas for Flashcards and Quiz structure
 ├── .env.local                   # API keys (git-ignored)
 └── package.json
+
