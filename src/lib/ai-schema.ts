@@ -1,14 +1,12 @@
 import { z } from 'zod';
 
 export const FlashcardSchema = z.object({
-  id: z.string().optional().default(() => Math.random().toString(36).substring(2, 9)),
   question: z.string(),
   answer: z.string(),
-  hint: z.string().optional(),
+  hint: z.string().nullable(),
 });
 
 export const QuizQuestionSchema = z.object({
-  id: z.string().optional().default(() => Math.random().toString(36).substring(2, 9)),
   question: z.string(),
   options: z.array(z.string()).min(4),
   correctAnswerIndex: z.coerce.number().min(0).max(3),
@@ -22,4 +20,7 @@ export const DeckGenerationSchema = z.object({
   quiz: z.array(QuizQuestionSchema).min(1),
 });
 
-export type DeckData = z.infer<typeof DeckGenerationSchema>;
+export type DeckData = z.infer<typeof DeckGenerationSchema> & {
+  flashcards: (z.infer<typeof FlashcardSchema> & { id: string })[];
+  quiz: (z.infer<typeof QuizQuestionSchema> & { id: string })[];
+};
